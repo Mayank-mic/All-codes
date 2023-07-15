@@ -5,19 +5,18 @@
 
 class Solution {
 public:
-    Node* vis[101] = {NULL};
-    
+    Node* vis[101]={NULL};
+   // memset(vis, NULL, sizeof(vis));
     Node* cloneGraph(Node* node) {
+        if(node==NULL) return NULL;
         Node* temp = new Node(node->val);
-        
-        temp->val = node->val;
-        vis[node->val] = temp;
-        
+        temp->val=node->val;
+        vis[node->val]=temp;
+
         for(auto it: node->neighbors){
             if(!vis[it->val]) cloneGraph(it);
             temp->neighbors.push_back(vis[it->val]);
         }
-        
         return temp;
     }
 };
