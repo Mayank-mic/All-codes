@@ -17,6 +17,7 @@ public:
         dsu(int n){
             parent.resize(n+1, 0);
             size.resize(n+1, 1);
+
             for(int i=0;i<n+1; ++i){
                 parent[i]=i;
             }
@@ -26,6 +27,7 @@ public:
             if(node==parent[node]) return node;
             return parent[node] = findpar(parent[node]);
         }
+
 
         void ubs(int u, int v){
             int ulp_u=findpar(u);
@@ -45,6 +47,7 @@ public:
 
     static bool comp(string a, string b){
         if(a[1]=='=' && b[1]=='!') return true;
+
        return false;
     }
 
@@ -53,27 +56,21 @@ public:
         
         int n=equations.size();
 
-        dsu ds(26);
+        dsu ds(25);
 
         sort(equations.begin(), equations.end(), comp);
 
-        for(int i=0;i<n;++i){
-            int first = equations[i][0]-'a';
-            char check = equations[i][1];
-            int sec = equations[i][3]-'a';
-          
-            if(check=='='){
-                ds.ubs(first, sec);
-                
-                ds.findpar(first);
-                ds.findpar(sec);
+            for(int i=0;i<n;++i){
 
-            }else{
-                cout<<ds.findpar(first)<<" "<<ds.findpar(sec)<<endl;
+                int first = equations[i][0]-'a';
+                int sec = equations[i][3]-'a';
 
-                if(ds.parent[first]== ds.parent[sec]) return false;
-            }
-                
+                if(equations[i][1]=='='){
+                    ds.ubs(first, sec);
+                }else{
+                    if(ds.findpar(first)== ds.findpar(sec)) return false;
+                }
+
             }
 
             return true;
