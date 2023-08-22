@@ -18,7 +18,7 @@ class dsu{
 
 
     int findUPar(int node){
-        if(parent[node]==node) return;
+        if(parent[node]==node) return node;
         return parent[node]=findUPar(parent[node]);
     }
 
