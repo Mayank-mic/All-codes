@@ -54,3 +54,53 @@ public:
     }
     
 };
+
+
+
+
+
+
+/////////    Method 2
+
+
+
+#include <stack>
+#include <string>
+
+using namespace std;
+
+class BrowserHistory {
+private:
+    stack<string> history;
+    stack<string> future;
+
+public:
+    BrowserHistory(string homepage) {
+        history.push(homepage);
+    }
+
+    void visit(string url) {
+        while (!future.empty()) {
+            future.pop();
+        }
+        history.push(url);
+    }
+
+    string back(int steps) {
+        while (steps > 0 && history.size() > 1) {
+            future.push(history.top());
+            history.pop();
+            steps--;
+        }
+        return history.top();
+    }
+
+    string forward(int steps) {
+        while (steps > 0 && !future.empty()) {
+            history.push(future.top());
+            future.pop();
+            steps--;
+        }
+        return history.top();
+    }
+};
