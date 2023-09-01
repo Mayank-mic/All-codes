@@ -24,8 +24,8 @@ class dsu{
 
 
     void ubs(int u, int v){
-        int ulp_u = parent[u];
-        int ulp_v = parent[v];
+        int ulp_u = findUPar(u);
+        int ulp_v = findUPar(v);
 
         if(ulp_v == ulp_u) return;
         else if(size[ulp_u]>size[ulp_v]){
